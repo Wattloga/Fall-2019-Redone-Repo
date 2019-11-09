@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elements source="Harmony Essentials (Harmony Essentials) version 17.0.0 build 14765 2019-06-07 14:19:47" version="1700" build="14765">
+ <element id="1" elementName="Drawing" elementFolder="Drawing" pixmapFormat="2" scanType="2" fieldChart="12" vectorType="2" rootFolder="elements"/>
+ <element id="3" elementName="Background" elementFolder="Background" pixmapFormat="2" scanType="2" fieldChart="12" vectorType="2" rootFolder="elements"/>
+</elements>

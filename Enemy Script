@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+public class Enemy : MonoBehaviour
+{
+    private GameObject pathGo;
+
+    private Transform targetPathNode;
+    private int pathNodeIndex = 0;
+
+    float speed = 5f;
+    
+    public float health = 1f;
+
+    public int moneyValue = 1;
+// Start is called before the first frame update
+    void Start()
+    {
+        pathGo = GameObject.Find("Path");
+    }
+
+    void GetNextPathNode()
+    {
+        targetPathNode = pathGo.transform.GetChild(pathNodeIndex);
+        pathNodeIndex++;
+    }
+    
+    // Update is called once per frame
+    void Update()
+    {
+        if (targetPathNode == null)
+        {
+            GetNextPathNode();
+            if (targetPathNode == null)
+            {
+                //Ran out of path!
+                ReachedGoal();
+            }
+        }
+        
+        Vector3 dir = targetPathNode.position - this.transform.localPosition;
+
+        float distThisFrame = speed * Time.deltaTime;
+
+        if (dir.magnitude <= distThisFrame)
+        {
+            //Reached the node!
+            targetPathNode = null;
+        }
+        else
+        {
+            //Move towards node.
+            transform.Translate(dir.normalized * distThisFrame, Space.World);
+             Quaternion targetRotation = Quaternion.LookRotation(dir);
+             this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, Time.deltaTime*5);
+        }
+    }
+    void ReachedGoal()
+    {
+        Destroy(gameObject);
+    }
+}
